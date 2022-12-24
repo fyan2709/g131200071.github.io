@@ -1,0 +1,64 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>Oracle Maps Sample Application</TITLE>
+<script language="Javascript" src="http://localhost:8888/mapviewer/fsmc/jslib/oraclemaps.js"></script>
+<script language=javascript>
+  var mapview;
+function showMap()
+{ 
+ var baseURL  = "http://localhost:8888/mapviewer";
+ var mapCenterLon = 425.236;
+ var mapCenterLat =  -364.005;
+ var mapZoom      =  4;
+ var mpoint = MVSdoGeometry.createPoint(mapCenterLon,mapCenterLat,32749);
+ mapview = new MVMapView(document.getElementById("map"), baseURL);
+ mapview.addMapTileLayer(new MVMapTileLayer("mvdemo.DEMAK_PD"));
+ mapview.setCenter(mpoint);
+ mapview.setZoomLevel(mapZoom);
+
+ addThemeBasedFOI();
+
+ mapview.addNavigationPanel("WEST");
+ mapview.display();
+}
+function addThemeBasedFOI()
+    {
+      var themebasedfoi1 = new MVThemeBasedFOI('themebasedfoi1','mvdemo.DEMAK_LUAS');
+      themebasedfoi1.enableAutoWholeImage(true) ;
+      mapview.addThemeBasedFOI(themebasedfoi1);
+      
+      var themebasedfoi2 = new MVThemeBasedFOI('themebasedfoi2','mvdemo.DEMAK_SD');
+      mapview.addThemeBasedFOI(themebasedfoi2);
+
+      var themebasedfoi3 = new MVThemeBasedFOI('themebasedfoi3','mvdemo.DEMAK_SMP');
+      mapview.addThemeBasedFOI(themebasedfoi3);
+      
+      var themebasedfoi4 = new MVThemeBasedFOI('themebasedfoi4','mvdemo.DEMAK_SMA');
+      mapview.addThemeBasedFOI(themebasedfoi4);
+
+      var themebasedfoi5 = new MVThemeBasedFOI('themebasedfoi5','mvdemo.DEMAK_SMK');
+      mapview.addThemeBasedFOI(themebasedfoi5);
+
+      var themebasedfoi6 = new MVThemeBasedFOI('themebasedfoi6','mvdemo.DEMAK_JML_PD');
+      mapview.addThemeBasedFOI(themebasedfoi6);
+
+    }
+    
+    function setVisible(item)
+    {
+      var themebasedfoi = mapview.getThemeBasedFOI(item.value);	  		
+      themebasedfoi.setVisible(!themebasedfoi.isVisible());
+    }	
+</script>
+</head>
+<body onload=javascript:showMap();>
+  <LI><INPUT TYPE="checkbox" value="themebasedfoi1" onclick="setVisible(this)" checked/>LUAS<LI>
+  <LI><INPUT TYPE="checkbox" value="themebasedfoi2" onclick="setVisible(this)" checked/>SD<LI>
+  <LI><INPUT TYPE="checkbox" value="themebasedfoi3" onclick="setVisible(this)" checked/>SMP<LI>
+  <LI><INPUT TYPE="checkbox" value="themebasedfoi4" onclick="setVisible(this)" checked/>SMA<LI>
+  <LI><INPUT TYPE="checkbox" value="themebasedfoi5" onclick="setVisible(this)" checked/>SMK<LI>
+  <LI><INPUT TYPE="checkbox" value="themebasedfoi6" onclick="setVisible(this)" checked/>Jml Peserta Didik<LI>
+  <h3> Oracle Maps Sample </h3>  <div id="map" style="left:0px; top:0px; width:100%; height:100%"></div>
+</body>
+</html>
